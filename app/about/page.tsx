@@ -3,6 +3,8 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import { Mail } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white text-black flex flex-col">
