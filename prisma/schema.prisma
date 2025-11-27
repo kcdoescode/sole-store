@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Int
+  
+  images      String[] 
+  
+  // UPGRADE: New Fields
+  sizes       String[] 
+  category    String   
+  brand       String   
+  
+  createdAt   DateTime @default(now())
+  // PERFORMANCE: indexes make filtering fast
+  @@index([category])
+  @@index([brand])
+  @@index([price])
+  @@index([name])
+}
+
+model Wishlist {
+  id        String   @id @default(uuid())
+  userId    String   // Clerk User ID
+  productId String
+  
+  
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId]) // Prevent duplicate likes for same product
+  @@index([userId])
+}
