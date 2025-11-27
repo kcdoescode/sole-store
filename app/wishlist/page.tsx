@@ -2,14 +2,14 @@
 
 import { useWishlist } from "@/lib/wishlist-store";
 import ProductCard from "@/components/ProductCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import { Heart } from "lucide-react";
 import { getProductsByIds } from "@/app/actions";
 
-export default function WishlistPage() {
+function WishlistContent() {
   const { items: wishlistIds } = useWishlist();
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,13 +48,13 @@ export default function WishlistPage() {
 
         {loading ? (
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="animate-pulse">
-                   <div className="aspect-square bg-gray-100 rounded-2xl mb-4" />
-                   <div className="h-4 bg-gray-100 rounded w-3/4 mb-2" />
-                   <div className="h-4 bg-gray-100 rounded w-1/4" />
-                </div>
-              ))}
+             {[1, 2, 3, 4].map((i) => (
+               <div key={i} className="animate-pulse">
+                  <div className="aspect-square bg-gray-100 rounded-2xl mb-4" />
+                  <div className="h-4 bg-gray-100 rounded w-3/4 mb-2" />
+                  <div className="h-4 bg-gray-100 rounded w-1/4" />
+               </div>
+             ))}
            </div>
         ) : products.length === 0 ? (
            <div className="text-center py-20 bg-gray-50 rounded-3xl">
@@ -67,7 +67,7 @@ export default function WishlistPage() {
            </div>
         ) : (
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {products.map((product) => {
+             {products.map((product) => {
                  const mainImage = product.images?.[0] || "https://via.placeholder.com/300";
                  
                  return (
@@ -79,12 +79,20 @@ export default function WishlistPage() {
                      }} 
                    />
                  );
-              })}
+             })}
            </div>
         )}
       </div>
 
       <Footer />
     </main>
+  );
+}
+
+export default function WishlistPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center">Loading...</div>}>
+      <WishlistContent />
+    </Suspense>
   );
 }

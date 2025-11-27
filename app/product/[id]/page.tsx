@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import ProductInterface from "@/components/ProductInterface"; 
 
+export const dynamic = "force-dynamic";
+
 interface ProductPageProps {
   params: Promise<{
     id: string;
@@ -17,7 +19,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product) return notFound();
 
-  // pass the database data into your Interactive Interface
   return (
     <ProductInterface 
         product={{

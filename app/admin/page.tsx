@@ -1,7 +1,9 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { deleteProduct } from "../actions";
+import { deleteProduct } from "../actions"; 
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
     // Check Admin Status
