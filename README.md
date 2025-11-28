@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Sole - Premium Sneaker E-Commerce Store
 
-## Getting Started
+Live Demo: https://sole-store-ivory.vercel.app
 
-First, run the development server:
+🚀 Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Sole is a modern, full-stack e-commerce platform designed for sneaker enthusiasts. Built with the latest Next.js 14 App Router, it features a seamless shopping experience with server-side rendering, secure payments via Stripe, and real-time database management.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project demonstrates a complete production-ready workflow, from authentication and database modeling to payment processing and responsive UI design.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🛍️ Full E-Commerce Flow: Browse products, add to cart, and checkout securely.
 
-## Learn More
+🎨 Modern UI/UX: "Vogue-style" aesthetic with a responsive layout, hero banners, and smooth transitions.
 
-To learn more about Next.js, take a look at the following resources:
+🔍 Advanced Discovery: Real-time search and filtering by brand, category, and price.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🛒 Smart Cart: Persistent cart state using Zustand, accessible via a slide-out drawer.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+💳 Secure Payments: Integrated Stripe Checkout for handling transactions.
 
-## Deploy on Vercel
+🔐 Authentication: User sign-up and login powered by Clerk.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+❤️ Wishlist: Save favorite items for later (persisted via database).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📱 Mobile Optimized: Custom mobile menu, touch-friendly interactions, and adaptive layouts.
+
+⚡ Admin Dashboard: Dedicated admin area to manage products and inventory.
+
+🛠️ Tech Stack
+
+Framework: Next.js 14 (App Router, Server Actions)
+
+Language: TypeScript
+
+Styling: Tailwind CSS
+
+Database: PostgreSQL (via Neon DB)
+
+ORM: Prisma
+
+Auth: Clerk
+
+State Management: Zustand
+
+Payments: Stripe
+
+Deployment: Vercel
+
+📸 Screenshots
+
+
