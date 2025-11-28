@@ -4,11 +4,16 @@ import { useCart } from "@/lib/store";
 import { X, ShoppingBag, CreditCard, Plus, Minus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createCheckoutSession } from "@/app/actions";
+import { useAuth, useClerk } from "@clerk/nextjs"; // ✅ Import Clerk Hooks
 
 export default function CartDrawer() {
   const { items, removeItem, decrementItem, addItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  //Get Auth State
+  const { isSignedIn } = useAuth();
+  const { openSignIn } = useClerk();
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -17,6 +22,12 @@ export default function CartDrawer() {
   useEffect(() => setIsClient(true), []);
 
   async function handleCheckout() {
+    // If not signed in, open the login popup and stop.
+    if (!isSignedIn) {
+      openSignIn();
+      return;
+    }
+
     setIsLoading(true);
     try {
       const { url } = await createCheckoutSession(items);
@@ -32,8 +43,7 @@ export default function CartDrawer() {
 
   return (
     <>
-      
-      <button 
+      <button
         onClick={() => setIsOpen(true)}
         className="relative flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 text-xs sm:text-sm font-medium text-gray-900 transition hover:bg-gray-100 whitespace-nowrap"
       >
@@ -42,19 +52,18 @@ export default function CartDrawer() {
       </button>
 
       {isOpen && (
-        <div 
-            className="fixed inset-0 z-[100] bg-black/60 transition-opacity" 
-            onClick={() => setIsOpen(false)}
+        <div
+          className="fixed inset-0 z-[100] bg-black/60 transition-opacity"
+          onClick={() => setIsOpen(false)}
         />
       )}
 
-      <div 
-        className={`fixed inset-y-0 right-0 z-[110] h-[100dvh] w-full max-w-md transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+      <div
+        className={`fixed inset-y-0 right-0 z-[110] h-[100dvh] w-full max-w-md transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex h-full flex-col">
-            
+
           <div className="flex items-center justify-between border-b px-6 py-4 bg-white">
             <h2 className="text-lg font-bold text-gray-900">Your Cart ({totalItems})</h2>
             <button onClick={() => setIsOpen(false)} className="rounded-full p-2 text-gray-500 hover:bg-gray-100 transition">
@@ -66,18 +75,18 @@ export default function CartDrawer() {
             {items.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center text-center space-y-4">
                 <div className="bg-gray-50 p-4 rounded-full">
-                    <ShoppingBag className="w-8 h-8 text-gray-400" />
+                  <ShoppingBag className="w-8 h-8 text-gray-400" />
                 </div>
                 <p className="text-lg font-medium text-gray-900">Your cart is empty</p>
                 <button onClick={() => setIsOpen(false)} className="text-blue-600 hover:underline font-medium">
-                    Start Shopping
+                  Start Shopping
                 </button>
               </div>
             ) : (
               <div className="space-y-6 pb-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex gap-4">
-                    
+
                     <div className="h-24 w-24 shrink-0 overflow-hidden rounded-md border border-gray-200 bg-gray-50">
                       <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
                     </div>
@@ -90,22 +99,22 @@ export default function CartDrawer() {
                         </div>
                         <p className="mt-1 text-xs text-gray-500">Size: {item.selectedSize || "N/A"}</p>
                       </div>
-                      
+
                       <div className="flex items-center justify-between mt-2">
                         <div className="flex items-center rounded-lg border border-gray-200 bg-white">
-                            <button 
-                                onClick={() => decrementItem(item.id)}
-                                className="p-1.5 hover:bg-gray-50 text-gray-600 transition"
-                            >
-                                <Minus className="w-3 h-3" />
-                            </button>
-                            <span className="px-2 text-sm font-medium text-gray-900 min-w-[1.5rem] text-center">{item.quantity}</span>
-                            <button 
-                                onClick={() => addItem(item)} 
-                                className="p-1.5 hover:bg-gray-50 text-gray-600 transition"
-                            >
-                                <Plus className="w-3 h-3" />
-                            </button>
+                          <button
+                            onClick={() => decrementItem(item.id)}
+                            className="p-1.5 hover:bg-gray-50 text-gray-600 transition"
+                          >
+                            <Minus className="w-3 h-3" />
+                          </button>
+                          <span className="px-2 text-sm font-medium text-gray-900 min-w-[1.5rem] text-center">{item.quantity}</span>
+                          <button
+                            onClick={() => addItem(item)}
+                            className="p-1.5 hover:bg-gray-50 text-gray-600 transition"
+                          >
+                            <Plus className="w-3 h-3" />
+                          </button>
                         </div>
 
                         <button
@@ -130,9 +139,9 @@ export default function CartDrawer() {
                 <p>${(total / 100).toFixed(2)}</p>
               </div>
               <p className="mt-0.5 text-xs text-gray-500 mb-4">
-                 Shipping and taxes calculated at checkout.
+                Shipping and taxes calculated at checkout.
               </p>
-              
+
               <button
                 onClick={handleCheckout}
                 disabled={isLoading}
