@@ -172,7 +172,7 @@ Install the following before running the project:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/PavanOvhal/sole-store.git
+git clone https://github.com/kcdoescode/sole-store.git
 cd sole-store
 ```
 
