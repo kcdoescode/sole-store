@@ -4,7 +4,7 @@
 
 ### Premium Sneaker E-Commerce Platform
 
-A modern full-stack storefront built for smooth product discovery, secure checkout, and responsive shopping experiences.
+A modern full-stack storefront built for seamless product discovery, secure checkout, and responsive shopping experiences.
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
